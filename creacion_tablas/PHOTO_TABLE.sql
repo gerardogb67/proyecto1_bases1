@@ -1,6 +1,6 @@
 CREATE TABLE Photo(
     idPhoto                     NUMBER(6),
-    image                       VARCHAR2(50) CONSTRAINT photo_image_nn NOT NULL,
+    image                       BLOB CONSTRAINT photo_image_nn NOT NULL,
     created_by			        VARCHAR2(10),
     creation_date               DATE,
     updated_by                  VARCHAR2(10),  

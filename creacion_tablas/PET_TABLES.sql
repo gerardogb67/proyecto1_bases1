@@ -94,8 +94,8 @@ CREATE TABLE Pet(
     namePet                   VARCHAR2(25) CONSTRAINT pet_name_nn NOT NULL,
     chip                      NUMBER(6)    CONSTRAINT pet_chip_nn NOT NULL,
     spaceRequired             VARCHAR2(50) CONSTRAINT pet_spaceRequired_nn NOT NULL,
-    afterPic                  VARCHAR2(20),
-    beforePic                 VARCHAR2(20),
+    afterPic                  BLOB,
+    beforePic                 BLOB,
     grade                     VARCHAR2(20), /*la grabedad de como fue encontrado la mascota*/
     totalSpent                NUMBER (23) CONSTRAINT pet_totalSpent_nn NOT NULL, /*Por hora voy de dejar el tipo de dato as� porque no estoy segura como ser�a con el tiempo*/
     address                   VARCHAR2(50) CONSTRAINT pet_address_nn NOT NULL,
