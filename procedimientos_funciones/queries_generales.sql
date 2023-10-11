@@ -1,5 +1,5 @@
 --SIZE
-CREATE OR REPLACE  FUNCTIONSIZE_getName(p_idSize IN NUMBER) RETURNS VARCHAR2 
+CREATE OR REPLACE FUNCTION SIZE_getName(p_idSize IN NUMBER) RETURNS VARCHAR2 
 AS 
 v_nameSize VARCHAR2;
 BEGIN 
@@ -8,6 +8,32 @@ BEGIN
     WHERE idSize = p_idSize;
 
     RETURN v_nameSize;
+END;
+
+CREATE OR REPLACE FUNCTION SIZE_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arraySizes SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idSize FROM Size) LOOP
+        v_arraySizes.EXTEND;
+        v_arraySizes(v_arraySizes.LAST) := SIZE_getName(i.idSize);
+    END LOOP;
+
+    RETURN v_arraySizes;
+END;
+
+CREATE OR REPLACE FUNCTION SIZE_getIdByName(p_nameSize IN VARCHAR2) RETURNS NUMBER 
+AS 
+v_idSize NUMBER;
+BEGIN 
+    SELECT idSize INTO v_idSize
+    FROM SizeT
+    WHERE nameSize = p_nameSize;
+
+    RETURN v_idSize;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL; 
 END;
 
 --ENERGYLEVEL
@@ -23,6 +49,31 @@ BEGIN
     RETURN v_nameEnergyLevel;
 END;
 
+CREATE OR REPLACE FUNCTION ENERGYLEVEL_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arrayEnergyLevels SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idEnergyLevel FROM energylevel) LOOP
+        v_arrayEnergyLevels.EXTEND;
+        v_arrayEnergyLevels(v_arrayEnergyLevels.LAST) := ENERGYLEVEL_getName(i.idEnergyLevel);
+    END LOOP;
+
+    RETURN v_arrayEnergyLevels;
+END;
+
+CREATE OR REPLACE FUNCTION ENERGYLEVEL_getIdByName(p_nameEnergyLevel IN VARCHAR2) RETURNS NUMBER 
+AS 
+v_idEnergyLevel NUMBER;
+BEGIN 
+    SELECT idEnergyLevel INTO v_idEnergyLevel
+    FROM energylevel
+    WHERE nameEnergyL = p_nameEnergyLevel;
+
+    RETURN v_idEnergyLevel;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL; 
+END;
 --EASETOTRAIN
 
 CREATE OR REPLACE FUNCTION EASETOTRAIN_getName(p_idEaseToTrain IN NUMBER) RETURN VARCHAR2
@@ -34,6 +85,18 @@ BEGIN
     WHERE idEaseToTrain = p_idEaseToTrain;
 
     RETURN v_nameEaseToTrain;
+END;
+
+CREATE OR REPLACE FUNCTION EASETOTRAIN_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arrayEasetoTrain SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idEasetoTrain FROM easetotrain) LOOP
+        v_arrayEasetoTrain.EXTEND;
+        v_arrayEasetoTrain(v_arrayEasetoTrain.LAST) := EASETOTRAIN_getName(i.idEasetoTrain);
+    END LOOP;
+
+    RETURN v_arrayEasetoTrain;
 END;
 
 --DISTRICT
@@ -70,6 +133,32 @@ BEGIN
     RETURN v_idCountry;
 END;
 
+CREATE OR REPLACE FUNCTION DISTRICT_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arrayDistricts SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idDistrict FROM district) LOOP
+        v_arrayDistricts.EXTEND;
+        v_arrayDistricts(v_arrayDistricts.LAST) := DISTRICT_getName(i.idDistrict);
+    END LOOP;
+
+    RETURN v_arrayDistricts;
+END;
+
+CREATE OR REPLACE FUNCTION DISTRICT_getIdByName(p_nameDistrict IN VARCHAR2) RETURNS NUMBER 
+AS 
+v_idDistrict NUMBER;
+BEGIN 
+    SELECT idDistrict INTO v_idDistrict
+    FROM district
+    WHERE nameDistrict = p_nameDistrict;
+
+    RETURN v_idDistrict;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL; 
+END;
+
 --STATE
 
 CREATE OR REPLACE FUNCTION STATE_getName(p_idState IN NUMBER) RETURN VARCHAR2
@@ -83,6 +172,31 @@ BEGIN
     RETURN v_nameState;
 END;
 
+CREATE OR REPLACE FUNCTION STATE_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arrayStates SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idState FROM stateT) LOOP
+        v_arrayStates.EXTEND;
+        v_arrayStates(v_arrayStates.LAST) := STATE_getName(i.idState);
+    END LOOP;
+
+    RETURN v_arrayStates;
+END;
+
+CREATE OR REPLACE FUNCTION STATE_getIdByName(p_nameState IN VARCHAR2) RETURNS NUMBER 
+AS 
+v_idState NUMBER;
+BEGIN 
+    SELECT idState INTO v_idState
+    FROM stateT
+    WHERE nameState = p_nameState;
+
+    RETURN v_idState;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL; 
+END;
 
 --CONDITIONONRESQUE
 
@@ -95,6 +209,32 @@ BEGIN
     WHERE idConditionOnResque = p_idCOR;
 
     RETURN v_nameCOR;
+END;
+
+CREATE OR REPLACE FUNCTION CONDITIONONRESCUE_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arrayConditions SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idConditionOnRescue FROM conditionOnRescue) LOOP
+        v_arrayConditions.EXTEND;
+        v_arrayConditions(v_arrayConditions.LAST) := CONDITIONONRESCUE_getName(i.idConditionOnRescue);
+    END LOOP;
+
+    RETURN v_arrayConditions;
+END;
+
+CREATE OR REPLACE FUNCTION CONDITIONONRESCUE_getIdByName(p_nameConditionOnRescue IN VARCHAR2) RETURNS NUMBER 
+AS 
+v_idConditionOnRescue NUMBER;
+BEGIN 
+    SELECT idConditionOnRescue INTO v_idConditionOnRescue
+    FROM conditionOnRescue
+    WHERE nameConditionR = p_nameConditionOnRescue;
+
+    RETURN v_idConditionOnRescue;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL; 
 END;
 
 --COLOR
@@ -110,6 +250,17 @@ BEGIN
     RETURN v_nameColor;
 END;
 
+CREATE OR REPLACE FUNCTION COLOR_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arrayColors SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idColor FROM color) LOOP
+        v_arrayColors.EXTEND;
+        v_arrayColors(v_arrayColors.LAST) := COLOR_getName(i.idColor);
+    END LOOP;
+
+    RETURN v_arrayColors;
+END;
 
 --RACE
 
@@ -122,6 +273,32 @@ BEGIN
     WHERE idRace = p_idRace;
 
     RETURN v_nameRace;
+END;
+
+CREATE OR REPLACE FUNCTION RACE_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arrayRaces SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idRace FROM race) LOOP
+        v_arrayRaces.EXTEND;
+        v_arrayRaces(v_arrayRaces.LAST) := RACE_getName(i.idRace);
+    END LOOP;
+
+    RETURN v_arrayRaces;
+END;
+
+CREATE OR REPLACE FUNCTION RACE_getIdByName(p_nameRace IN VARCHAR2) RETURNS NUMBER 
+AS 
+v_idRace NUMBER;
+BEGIN 
+    SELECT idRace INTO v_idRace
+    FROM race
+    WHERE nameRace = p_nameRace;
+
+    RETURN v_idRace;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL;
 END;
 
 --TREATMENT
@@ -137,6 +314,32 @@ BEGIN
     RETURN v_nameTreatment;
 END;
 
+CREATE OR REPLACE FUNCTION TREATMENT_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arrayTreatments SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idTreatment FROM treatment) LOOP
+        v_arrayTreatments.EXTEND;
+        v_arrayTreatments(v_arrayTreatments.LAST) := TREATMENT_getName(i.idTreatment);
+    END LOOP;
+
+    RETURN v_arrayTreatments;
+END;
+
+CREATE OR REPLACE FUNCTION TREATMENT_getIdByName(p_nameTreatment IN VARCHAR2) RETURNS NUMBER 
+AS 
+v_idTreatment NUMBER;
+BEGIN 
+    SELECT idTreatment INTO v_idTreatment
+    FROM treatment
+    WHERE nameTreatment = p_nameTreatment;
+
+    RETURN v_idTreatment;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL;
+END;
+
 --DISEASE
 
 CREATE OR REPLACE FUNCTION DISEASE_getName (p_idDisease IN NUMBER) RETURN VARCHAR2
@@ -148,6 +351,32 @@ BEGIN
     WHERE idDisease = p_idDisease;
 
     RETURN v_nameDisease;
+END;
+
+CREATE OR REPLACE FUNCTION DISEASE_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arrayDiseases SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idDisease FROM disease) LOOP
+        v_arrayDiseases.EXTEND;
+        v_arrayDiseases(v_arrayDiseases.LAST) := DISEASE_getName(i.idDisease);
+    END LOOP;
+
+    RETURN v_arrayDiseases;
+END;
+
+CREATE OR REPLACE FUNCTION DISEASE_getIdByName(p_nameDisease IN VARCHAR2) RETURNS NUMBER 
+AS 
+v_idDisease NUMBER;
+BEGIN 
+    SELECT idDisease INTO v_idDisease
+    FROM disease
+    WHERE nameDisease = p_nameDisease;
+
+    RETURN v_idDisease;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL; -- Manejar el caso en el que el nombre no se encuentra
 END;
 
 --SPECIE
@@ -175,6 +404,32 @@ BEGIN
     RETURN v_arrayRaces;
 END;
 
+CREATE OR REPLACE FUNCTION SPECIE_getAll () RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arraySpecies SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT idSpecie FROM specie) LOOP
+        v_arraySpecies.EXTEND;
+        v_arraySpecies(v_arraySpecies.LAST) := SPECIE_getName(i.idSpecie);
+    END LOOP;
+
+    RETURN v_arraySpecies;
+END;
+
+CREATE OR REPLACE FUNCTION SPECIE_getIdByName(p_nameSpecie IN VARCHAR2) RETURNS NUMBER 
+AS 
+v_idSpecie NUMBER;
+BEGIN 
+    SELECT idSpecie INTO v_idSpecie
+    FROM specie
+    WHERE nameSpecie = p_nameSpecie;
+
+    RETURN v_idSpecie;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL; -- Manejar el caso en el que el nombre no se encuentra
+END;
+
 --PHOTO
 
 CREATE OR REPLACE FUNCTION PHOTO_getImage (p_idPhoto IN NUMBER) RETURN BLOB
@@ -187,4 +442,3 @@ BEGIN
 
     RETURN v_image;
 END;
-

@@ -131,27 +131,6 @@ BEGIN
     RETURN v_afterPic;
 END;
 
-CREATE OR REPLACE FUNCTION PET_getAfterResquePic(p_idPet IN NUMBER) RETURNS BLOB
-AS
-    v_afterPic BLOB;
-BEGIN
-    SELECT afterPic INTO v_afterPic
-    FROM Pet 
-    WHERE idPet = p_idPet;
-
-    RETURN v_afterPic;
-END;
-
-CREATE OR REPLACE FUNCTION PET_getAfterResquePic(p_idPet IN NUMBER) RETURNS BLOB
-AS
-    v_afterPic BLOB;
-BEGIN
-    SELECT afterPic INTO v_afterPic
-    FROM Pet 
-    WHERE idPet = p_idPet;
-
-    RETURN v_afterPic;
-END;
 
 CREATE OR REPLACE FUNCTION PET_getSize(p_idPet IN NUMBER) RETURNS VARCHAR2
 AS
