@@ -280,3 +280,39 @@ BEGIN
 
     RETURN v_arrayPetPhotos;
 END;
+
+CREATE OR REPLACE FUNCTION PET_getLostPets(p_idPet IN NUMBER) RETURN SYS.ODCINUMBERLIST
+AS
+    v_arrayLostPetOwners SYS.ODCINUMBERLIST := SYS.ODCINUMBERLIST();
+BEGIN
+    FOR i IN (SELECT idLostPetOwner FROM PetXLostPetOwner WHERE idPet = p_idPet) LOOP
+        v_arrayLostPetOwners.EXTEND;
+        v_arrayLostPetOwners(v_arrayLostPetOwners.LAST) := i.idLostPetOwner;
+    END LOOP;
+
+    RETURN v_arrayLostPetOwners;
+END;
+
+CREATE OR REPLACE FUNCTION PET_getLostPets() RETURN SYS.ODCINUMBERLIST
+AS
+    v_arrayLostPets SYS.ODCINUMBERLIST := SYS.ODCINUMBERLIST();
+BEGIN
+    FOR i IN (SELECT idPet FROM Pet WHERE idState = 2) LOOP
+        v_arrayLostPets.EXTEND;
+        v_arrayLostPets(v_arrayLostPets.LAST) := i.idPet;
+    END LOOP;
+
+    RETURN v_arrayLostPets;
+END;
+
+CREATE OR REPLACE FUNCTION PET_getAdoptedPets() RETURN SYS.ODCINUMBERLIST
+AS
+    v_arrayAdoptedPets SYS.ODCINUMBERLIST := SYS.ODCINUMBERLIST();
+BEGIN
+    FOR i IN (SELECT idPet FROM Pet WHERE idState = 4) LOOP
+        v_arrayAdoptedPets.EXTEND;
+        v_arrayAdoptedPets(v_arrayAdoptedPets.LAST) := i.idPet;
+    END LOOP;
+
+    RETURN v_arrayAdoptedPets;
+END;

@@ -442,3 +442,30 @@ BEGIN
 
     RETURN v_image;
 END;
+
+--OPTIONT
+
+CREATE OR REPLACE FUNCTION OPTIONT_getAnswer(p_idOptions IN NUMBER) RETURN VARCHAR2
+AS
+v_answer VARCHAR2;
+BEGIN
+    SELECT answer INTO v_answer
+    FROM OptionT
+    WHERE idOptions = p_idOptions;
+
+    RETURN v_answer;
+END;
+
+--ITEMSADOPTIONTEST
+
+CREATE OR REPLACE FUNCTION ITEMSADOPTIONTEST_getOptions(p_idItemsAdoptionTest IN NUMBER) RETURN SYS.ODCIVARCHAR2LIST
+AS
+    v_arrayIAT SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST();
+BEGIN
+    FOR i IN (SELECT answer FROM OptionT WHERE idItemsAdoptionTest = p_idItemsAdoptionTest) LOOP
+        v_arrayIAT.EXTEND;
+        v_arrayIAT(v_arrayIAT.LAST) := answer;
+    END LOOP;
+
+    RETURN v_arrayIAT;
+END;
